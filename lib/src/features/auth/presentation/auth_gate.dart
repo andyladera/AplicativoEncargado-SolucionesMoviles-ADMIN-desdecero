@@ -30,10 +30,26 @@ class AuthGate extends StatelessWidget {
             }
 
             if (!snapshot.hasData || snapshot.data == null) {
-              // Handle error or user not found in 'admins' collection
-              return const Scaffold(
-                body: Center(
-                  child: Text('Admin data not found.'),
+              return Scaffold(
+                appBar: AppBar(
+                  title: const Text('Error de Autenticación'),
+                  actions: [
+                    IconButton(
+                      icon: const Icon(Icons.logout),
+                      onPressed: () {
+                        FirebaseAuth.instance.signOut();
+                      },
+                    ),
+                  ],
+                ),
+                body: const Center(
+                  child: Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      'No se encontraron datos para tu usuario. Esto puede ocurrir si el proceso de registro no se completó correctamente. Por favor, cierra sesión e intenta registrarte de nuevo.',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
                 ),
               );
             }
@@ -46,9 +62,20 @@ class AuthGate extends StatelessWidget {
               return const JuradoDashboardScreen();
             }
 
-            return const Scaffold(
-              body: Center(
-                child: Text('Unknown role.'),
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Error de Rol'),
+                actions: [
+                  IconButton(
+                    icon: const Icon(Icons.logout),
+                    onPressed: () {
+                      FirebaseAuth.instance.signOut();
+                    },
+                  ),
+                ],
+              ),
+              body: const Center(
+                child: Text('Rol desconocido.'),
               ),
             );
           },
