@@ -28,6 +28,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
           .set({
         'rol': _selectedRole,
         'email': _emailController.text,
+        'uid': userCredential.user!.uid,
       });
 
       if (mounted) {
